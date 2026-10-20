@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Accessibility Lead &amp; Architect | aniac.co.uk</title>
+  <meta name="description" content="Single-File CV & Engineering Manifesto — Technical Accessibility Lead & Architect specializing in Framework-Agnostic UI, Native Web Standards, and WCAG 2.2.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Accessibility Lead &amp; Architect | aniac.co.uk</title>
+  <meta name="description" content="Single-File CV & Engineering Manifesto — Technical Accessibility Lead & Architect specializing in Framework-Agnostic UI, Native Web Standards, and WCAG 2.2.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #525252; /* 7.5:1 AAA contrast on white */
+      --line: #d4d4d4;
+      --surface: #f5f5f5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0c0c;
+        --text: #f0f0f0;
+        --muted: #a3a3a3; /* 7.4:1 AAA contrast on #0c0c0c */
+        --line: #2e2e2e;
+        --surface: #161616;
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.6;
+      font-size: 0.95rem;
+      max-width: 70ch;
+      margin-inline: auto;
+      padding: 4rem 1.5rem 8rem;
+    }
+
+    /* Skip Link targeted via native href attribute — zero classes or IDs in CSS */
+    body > a[href="#main-content"] {
+      position: absolute;
+      top: -100%;
+      left: 1.5rem;
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      font-weight: 700;
+      z-index: 1000;
+    }
+
+    body > a[href="#main-content"]:focus-visible {
+      top: 1rem;
+    }
+
+    :focus-visible {
+      outline: 2px dashed var(--text);
+      outline-offset: 4px;
+    }
+
+    abbr[title] {
+      text-decoration: underline dotted var(--muted);
+      text-underline-offset: 3px;
+      cursor: help;
+    }
+
+    /* Root Landmarks Scoped Cleanly */
+    body > header {
+      margin-bottom: 3.5rem;
+      border-bottom: 2px solid var(--text);
+      padding-bottom: 2rem;
+    }
+
+    hgroup p:first-child {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    hgroup h1 {
+      font-size: clamp(1.5rem, 4vw, 1.85rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    hgroup p:last-child {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      list-style: none;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    a {
+      color: var(--text);
+      text-underline-offset: 3px;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    h2 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    blockquote {
+      border-left: 2px solid var(--text);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Native List Marker String — Preserves Safari VoiceOver Semantics */
+    main ul {
+      list-style-type: "—  ";
+      padding-left: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    main li {
+      margin-bottom: 0.6rem;
+    }
+
+    main li::marker {
+      color: var(--muted);
+    }
+
+    /* Description List */
+    dl {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    dt {
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+    dt:first-of-type {
+      margin-top: 0;
+    }
+
+    dd {
+      color: var(--muted);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    dd:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    /* Experience Articles & Accordions */
+    article {
+      margin-bottom: 2.25rem;
+    }
+
+    article > header p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    details {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+    }
+
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    details[open] summary {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Document Footer */
+    body > footer {
+      border-top: 1px solid var(--line);
+      padding-top: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    address {
+      font-style: normal;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Native Popover for Privacy Notice */
+    [popover] {
+      margin: auto;
+      max-width: 55ch;
+      background: var(--bg);
+      color: var(--text);
+      border: 2px solid var(--text);
+      padding: 1.5rem;
+    }
+
+    [popover]::backdrop {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Native non-modal <dialog> — hidden by default until [open] is present */
+    dialog[aria-label="Cookie Consent"][open] {
+      position: fixed;
+      inset: auto 0 0 0;
+      width: 100%;
+      max-width: none;
+      background-color: var(--text);
+      color: var(--bg);
+      border: none;
+      border-top: 2px solid var(--bg);
+      padding: 1rem 1.5rem;
+      font-size: 0.85rem;
+      z-index: 1000;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.5rem;
+    }
+
+    dialog[aria-label="Cookie Consent"] p {
+      margin: 0;
+    }
+
+    dialog[aria-label="Cookie Consent"] button,
+    [popover] button,
+    body > footer button {
+      font-family: inherit;
+      background: transparent;
+      color: inherit;
+      border: 1px solid currentColor;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    dialog[aria-label="Cookie Consent"] button:hover,
+    dialog[aria-label="Cookie Consent"] button:focus-visible,
+    [popover] button:hover,
+    [popover] button:focus-visible,
+    body > footer button:hover,
+    body > footer button:focus-visible {
+      background: var(--bg);
+      color: var(--text);
+      outline: 2px dashed currentColor;
+      outline-offset: 2px;
+    }
+
+    @media print {
+      body > a[href="#main-content"], nav, dialog[aria-label="Cookie Consent"] {
+        display: none !important;
+      }
+      body {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content">Skip to main content</a>
+
+  <header>
+    <hgroup>
+      <p>Technical Accessibility Lead &amp; Architect | Framework-Agnostic UI &amp; Native Web Standards | WCAG 2.2 &amp; Shift-Left Inclusion | Ex-Lecturer &amp; Consultant</p>
+      <h1>Engineering Resilient, Human-Centric Web Systems</h1>
+      <p>Bridging UX design and engineering squads with over two decades of progressive, standards-compliant architecture.</p>
+    </hgroup>
+
+    <nav aria-label="Primary">
+      <ul role="list">
+        <li><a href="#manifesto">Manifesto</a></li>
+        <li><a href="#competencies">Capabilities</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#academia">Academia</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <section id="manifesto" aria-labelledby="h-manifesto">
+      <h2 id="h-manifesto">Philosophy &amp; Engineering Manifesto</h2>
+      <p>
+        For over two decades—from building my first mobile game in <time datetime="2002">2002</time> and navigating the Flash era to architecting resilient interfaces in regulated banking—my career has been driven by one core principle: the web must be accessible, resilient, and built on native semantic foundations.
+      </p>
+      <p>
+        Having started when browsers were deeply fragmented, I spent years building polyfills and working under the hood of the Document Object Model (<abbr title="Document Object Model">DOM</abbr>). That era taught me a permanent lesson: proprietary abstractions and bloated frameworks will always come and go, but native open web standards endure.
+      </p>
+      <p>
+        <dfn>HTML-First Progressive Enhancement</dfn> means starting with a resilient, semantic document that works everywhere, then layering modern CSS and declarative Web Components on top. I embed directly across engineering and design squads to "shift left":
+      </p>
+      <ul>
+        <li>
+          <strong>The Native Flow:</strong> Stripping away framework bloat, specificity wars, and hacky ARIA by leveraging native HTML semantics and Web Components for what they were actually designed to do.
+        </li>
+        <li>
+          <strong>Bridge Engineering:</strong> Uniting UX, QA, and development teams around shared accessibility empathy, rooted in years of university lecturing in interactive systems.
+        </li>
+        <li>
+          <strong>Risk &amp; Regulatory Remediation:</strong> Ensuring codebases meet Web Content Accessibility Guidelines (<abbr title="Web Content Accessibility Guidelines">WCAG</abbr>) 2.2 and statutory compliance while eliminating architectural tech debt.
+        </li>
+      </ul>
+      <blockquote>
+        <p>"Simplicity is about subtracting the obvious and adding the meaningful—letting native web standards carry the weight so interfaces remain fast, inclusive, and unbreakable."</p>
+      </blockquote>
+    </section>
+
+    <section id="competencies" aria-labelledby="h-competencies">
+      <h2 id="h-competencies">Capabilities</h2>
+      <dl>
+        <dt>Web Standards, Accessibility &amp; UX</dt>
+        <dd>
+          WCAG 2.2 AA/AAA auditing, WAI-ARIA patterns, semantic HTML5, keyboard &amp; screen-reader usability, technical feasibility reviews, and bridging UX/Design and Development squads.
+        </dd>
+
+        <dt>Modern Front-End &amp; Framework-Agnostic Architecture</dt>
+        <dd>
+          Native Web Component APIs, Custom Elements, Shadow DOM encapsulation, TypeScript, Lit, Angular, RxJS, modern ES7+ JavaScript, and modular CSS architecture.
+        </dd>
+
+        <dt>Full Stack .NET &amp; Regulated Enterprise Systems</dt>
+        <dd>
+          C#, ASP.NET Core, Razor Pages, RESTful APIs, Enterprise Service Bus (<abbr title="Enterprise Service Bus">ESB</abbr>) banking integrations, Experian and Confirmation of Payee journeys in Financial Conduct Authority (<abbr title="Financial Conduct Authority">FCA</abbr>)-regulated environments.
+        </dd>
+      </dl>
+    </section>
+
+    <section id="experience" aria-labelledby="h-experience">
+      <h2 id="h-experience">Experience</h2>
+
+      <article>
+        <header>
+          <h3>Principal Accessibility Consultant &amp; Architect</h3>
+          <p>Inclusive UX • <time datetime="2026">2026</time> — Present</p>
+        </header>
+        <p>
+          Advising enterprise teams on shift-left digital accessibility, framework-agnostic component architecture, and WCAG 2.2 compliance.
+        </p>
+        <details name="career-history" open>
+          <summary>Consulting Scope &amp; Deliverables</summary>
+          <ul>
+            <li>Conduct deep-dive technical accessibility audits and architectural reviews across complex digital products.</li>
+            <li>Remediate legacy front-end debt by replacing fragile custom abstractions with native semantic HTML and encapsulated Web Components.</li>
+            <li>Mentor engineering and design squads on native DOM standards, assistive technology testing, and shift-left inclusion.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article>
+        <header>
+          <h3>Senior Full Stack .NET Developer &amp; Technical Accessibility Lead</h3>
+          <p>Leeds Building Society • <time datetime="2024-01">Jan 2024</time> — <time datetime="2026">2026</time></p>
+        </header>
+        <p>
+          Engineered high-security savings acquisition and customer servicing journeys for a mutual founded in <time datetime="1875">1875</time>, serving over 1M members.
+        </p>
+        <details name="career-history">
+          <summary>Architectural Scope &amp; Impact</summary>
+          <ul>
+            <li>Delivered end-to-end New Customer Acquisitions (NCA) and Existing Customer Applications (ECA) in .NET Razor Pages, C#, and Sass within 2-week sprints.</li>
+            <li>Led technical feasibility reviews and compliance audits, bridging UX design and engineering squads.</li>
+            <li>Integrated ESB banking services, Experian credit checks, and payee verification workflows.</li>
+            <li>Drove technical accessibility compliance and progressive enhancement across digital squads.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article>
+        <header>
+          <h3>Senior Software Engineer</h3>
+          <p>Vee24 • <time datetime="2012">2012</time> — <time datetime="2023">2023</time></p>
+        </header>
+        <p>
+          Architected front-end web components, communication layers, and client-side solutions powering live video engagements for global enterprises.
+        </p>
+      </article>
+
+      <article id="academia">
+        <header>
+          <h3>Lecturer &amp; Researcher in Web, Mobile &amp; Multimedia</h3>
+          <p>University of Bradford • <time datetime="2004">2004</time> — <time datetime="2007">2007</time> &amp; <time datetime="2011">2011</time> — <time datetime="2012">2012</time></p>
+        </header>
+        <p>
+          Designed and delivered undergraduate modules in mobile, multimedia, web, and games development with a foundational focus on UX theory, practice, and accessibility. Graduated with a First-Class Honours BSc in Interactive Systems &amp; Video Game Design (<time datetime="2004">2004</time>).
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <address>
+      Available for technical accessibility leadership, architectural audits, and advisory via <a href="https://www.linkedin.com">LinkedIn</a>.
+    </address>
+    <p>
+      <small>
+        Built with progressive, zero-dependency, zero-<code>&lt;div&gt;</code> semantic HTML.
+        <button type="button" popovertarget="privacy-notice">Privacy &amp; Cookies</button>
+      </small>
+    </p>
+  </footer>
+
+  <!-- Native Popover API for Privacy Notice — Zero JS Needed -->
+  <aside id="privacy-notice" popover>
+    <h2>Privacy &amp; Analytics Notice</h2>
+    <p>This site uses Google Tag Manager (<code>GTM-K7X6DVZ7</code>) only if you explicitly opt in via the consent banner. No tracking scripts or third-party cookies are loaded by default.</p>
+    <button type="button" popovertarget="privacy-notice" popovertargetaction="hide">Close</button>
+  </aside>
+
+  <!-- Progressive Cookie Consent Banner using Native <dialog> -->
+  <dialog aria-label="Cookie Consent">
+    <p>Allow analytics cookies (Google Tag Manager)?</p>
+    <button type="button" data-consent="accepted">Accept</button>
+    <button type="button" data-consent="rejected">Reject</button>
+    <button type="button" popovertarget="privacy-notice">Privacy</button>
+  </dialog>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'user_cookie_consent';
+      const GTM_ID = 'GTM-K7X6DVZ7';
+      const dialog = document.querySelector('dialog[aria-label="Cookie Consent"]');
+
+      function loadGTM() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js'
+        });
+
+        const gtmScript = document.createElement('script');
+        gtmScript.async = true;
+        gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+        document.head.appendChild(gtmScript);
+      }
+
+      const consent = localStorage.getItem(STORAGE_KEY);
+      if (!consent) {
+        dialog.show();
+      } else if (consent === 'accepted') {
+        loadGTM();
+      }
+
+      dialog.addEventListener('click', function (event) {
+        const decision = event.target.getAttribute('data-consent');
+        if (!decision) return;
+
+        localStorage.setItem(STORAGE_KEY, decision);
+        dialog.close();
+        if (decision === 'accepted') {
+          loadGTM();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>Front-End &amp; Framework-Agnostic Architecture</dt>
+        <dd>
+          Native Web Component APIs, Custom Elements, Shadow DOM encapsulation, TypeScript, Lit, Angular, RxJS, modern ES7+ JavaScript, and modular CSS architecture.
+        </dd>
+
+        <dt>Full Stack .NET &amp; Regulated Enterprise Systems</dt>
+        <dd>
+          C#, ASP.NET Core, Razor Pages, RESTful APIs, Enterprise Service Bus (<abbr title="Enterprise Service Bus">ESB</abbr>) banking integrations, Experian and Confirmation of Payee journeys in Financial Conduct Authority (<abbr title="Financial Conduct Authority">FCA</abbr>)-regulated environments.
+        </dd>
+      </dl>
+    </section>
+
+    <section id="experience" aria-labelledby="h-experience">
+      <h2 id="h-experience">Experience</h2>
+
+      <article>
+        <header>
+          <h3>Principal Accessibility Consultant &amp; Architect</h3>
+          <p>Inclusive UX • <time datetime="2026">2026</time> — Present</p>
+        </header>
+        <p>
+          Advising enterprise teams on shift-left digital accessibility, framework-agnostic component architecture, and WCAG 2.2 compliance.
+        </p>
+        <details name="career-history" open>
+          <summary>Consulting Scope &amp; Deliverables</summary>
+          <ul>
+            <li>Conduct deep-dive technical accessibility audits and architectural reviews across complex digital products.</li>
+            <li>Remediate legacy front-end debt by replacing fragile custom abstractions with native semantic HTML and encapsulated Web Components.</li>
+            <li>Mentor engineering and design squads on native DOM standards, assistive technology testing, and shift-left inclusion.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article>
+        <header>
+          <h3>Senior Full Stack .NET Developer &amp; Technical Accessibility Lead</h3>
+          <p>Leeds Building Society • <time datetime="2024-01">Jan 2024</time> — <time datetime="2026">2026</time></p>
+        </header>
+        <p>
+          Engineered high-security savings acquisition and customer servicing journeys for a mutual founded in <time datetime="1875">1875</time>, serving over 1M members.
+        </p>
+        <details name="career-history">
+          <summary>Architectural Scope &amp; Impact</summary>
+          <ul>
+            <li>Delivered end-to-end New Customer Acquisitions (NCA) and Existing Customer Applications (ECA) in .NET Razor Pages, C#, and Sass within 2-week sprints.</li>
+            <li>Led technical feasibility reviews and compliance audits, bridging UX design and engineering squads.</li>
+            <li>Integrated ESB banking services, Experian credit checks, and payee verification workflows.</li>
+            <li>Drove technical accessibility compliance and progressive enhancement across digital squads.</li>
+          </ul>
+        </details>
+      </article>
+
+      <article>
+        <header>
+          <h3>Senior Software Engineer</h3>
+          <p>Vee24 • <time datetime="2012">2012</time> — <time datetime="2023">2023</time></p>
+        </header>
+        <p>
+          Architected front-end web components, communication layers, and client-side solutions powering live video engagements for global enterprises.
+        </p>
+      </article>
+
+      <article id="academia">
+        <header>
+          <h3>Lecturer &amp; Researcher in Web, Mobile &amp; Multimedia</h3>
+          <p>University of Bradford • <time datetime="2004">2004</time> — <time datetime="2007">2007</time> &amp; <time datetime="2011">2011</time> — <time datetime="2012">2012</time></p>
+        </header>
+        <p>
+          Designed and delivered undergraduate modules in mobile, multimedia, web, and games development with a foundational focus on UX theory, practice, and accessibility. Graduated with a First-Class Honours BSc in Interactive Systems &amp; Video Game Design (<time datetime="2004">2004</time>).
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <address>
+      Available for technical accessibility leadership, architectural audits, and advisory via <a href="https://www.linkedin.com">LinkedIn</a>.
+    </address>
+    <p>
+      <small>
+        Built with progressive, zero-dependency, zero-<code>&lt;div&gt;</code> semantic HTML.
+        <button type="button" popovertarget="privacy-notice">Privacy &amp; Cookies</button>
+      </small>
+    </p>
+  </footer>
+
+  <!-- Native Popover API for Privacy Notice — Zero JS Needed -->
+  <aside id="privacy-notice" popover>
+    <h2>Privacy &amp; Analytics Notice</h2>
+    <p>This site uses Google Tag Manager (<code>GTM-K7X6DVZ7</code>) only if you explicitly opt in via the consent banner. No tracking scripts or third-party cookies are loaded by default.</p>
+    <button type="button" popovertarget="privacy-notice" popovertargetaction="hide">Close</button>
+  </aside>
+
+  <!-- Progressive Cookie Consent Banner using Native <dialog> -->
+  <dialog aria-label="Cookie Consent">
+    <p>Allow analytics cookies (Google Tag Manager)?</p>
+    <button type="button" data-consent="accepted">Accept</button>
+    <button type="button" data-consent="rejected">Reject</button>
+    <button type="button" popovertarget="privacy-notice">Privacy</button>
+  </dialog>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'user_cookie_consent';
+      const GTM_ID = 'GTM-K7X6DVZ7';
+      const dialog = document.querySelector('dialog[aria-label="Cookie Consent"]');
+
+      function loadGTM() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js'
+        });
+
+        const gtmScript = document.createElement('script');
+        gtmScript.async = true;
+        gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+        document.head.appendChild(gtmScript);
+      }
+
+      const consent = localStorage.getItem(STORAGE_KEY);
+      if (!consent) {
+        dialog.show();
+      } else if (consent === 'accepted') {
+        loadGTM();
+      }
+
+      dialog.addEventListener('click', function (event) {
+        const decision = event.target.getAttribute('data-consent');
+        if (!decision) return;
+
+        localStorage.setItem(STORAGE_KEY, decision);
+        dialog.close();
+        if (decision === 'accepted') {
+          loadGTM();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
